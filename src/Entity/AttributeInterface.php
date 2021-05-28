@@ -2,9 +2,7 @@
 
 namespace Mrself\Attributes\Entity;
 
-interface AttributeInterface
+interface AttributeInterface extends HasParentInterface
 {
-    public function getId();
-
     public function getName(): string;
 }
