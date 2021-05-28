@@ -32,6 +32,11 @@ class Collection extends ArrayCollection
         return $first ?: null;
     }
 
+    /**
+     * Check if the provided entity exists in this collection
+     * @param $entity
+     * @return bool
+     */
     public function has($entity): bool
     {
         return $this->hasById($entity->getId());
