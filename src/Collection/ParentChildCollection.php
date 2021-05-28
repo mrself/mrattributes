@@ -7,7 +7,7 @@ use Mrself\Attributes\Entity\HasParentInterface;
 trait ParentChildCollection
 {
     /**
-     * Returns attributes which do not have children in the current collection
+     * Returns entities which do not have children in the current collection
      * @return static
      */
     public function onlyDeepest()
@@ -36,7 +36,7 @@ trait ParentChildCollection
     }
 
     /**
-     * Returns attributes without parent
+     * Returns entities without parent
      * @return static
      */
     public function getRootAttributes()
