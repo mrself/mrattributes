@@ -34,10 +34,10 @@ class Collection extends ArrayCollection
 
     /**
      * Check if the provided entity exists in this collection
-     * @param $entity
+     * @param EntityInterface $entity
      * @return bool
      */
-    public function has($entity): bool
+    public function has(EntityInterface $entity): bool
     {
         return $this->hasById($entity->getId());
     }
