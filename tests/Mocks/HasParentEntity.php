@@ -7,12 +7,15 @@ use Mrself\Attributes\Entity\HasParentInterface;
 
 class HasParentEntity implements HasParentInterface
 {
-    public function getParent(): HasParentInterface
+    /**
+     * @return HasParentInterface
+     */
+    public function getParent()
     {
-
+        return null;
     }
 
-    public function getChildren(): Collection
+    public function getChildren()
     {
 
     }

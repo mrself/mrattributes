@@ -97,10 +97,10 @@ class Collection extends ArrayCollection
     }
 
     /**
-     * @param Collection $collection
+     * @param DoctrineCollection $collection
      * @return static
      */
-    public function onlyInCollection(Collection $collection)
+    public function onlyInCollection(DoctrineCollection $collection)
     {
         return $this->filter(function (EntityInterface $entity) use ($collection) {
             return $collection->has($entity);

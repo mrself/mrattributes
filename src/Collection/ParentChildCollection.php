@@ -4,6 +4,7 @@ namespace Mrself\Attributes\Collection;
 
 use Mrself\Attributes\Entity\EntityInterface;
 use Mrself\Attributes\Entity\HasParentInterface;
+use Mrself\Attributes\Services\MultipleTreeEntities;
 
 /**
  * @mixin Collection
@@ -57,39 +58,10 @@ trait ParentChildCollection
     }
 
     /**
-     * @return static
+     * @return array
      */
-    public function findMultipleOneLevelAttributes()
+    public function findMultipleOneLevelAttributes(): array
     {
-        $attributes = $this->findOneLevelAttributes();
-        return $attributes->count() ? $attributes : static::from();
-    }
-
-    /**
-     * @return static
-     */
-    public function findOneLevelAttributes()
-    {
-        $attributes = $this->getNonRootAttributes();
-        return $attributes->count() ? $attributes : $this->getRootAttributes();
-    }
-
-    /**
-     * @return static
-     */
-    public function getNonRootAttributes()
-    {
-        $result = static::from();
-        foreach ($this as $attribute) {
-            /** @var HasParentInterface $attribute */
-            $loadedChildren = $attribute->getChildren();
-            $collection = static::from($loadedChildren);
-
-            $definedChildren = $this->onlyInCollection($collection);
-            if ($definedChildren->count() > 1) {
-                $result->merge($definedChildren);
-            }
-        }
-        return $result;
+        return MultipleTreeEntities::from($this)->findMultipleOneLevelEntities();
     }
 }

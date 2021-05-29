@@ -28,6 +28,13 @@ class MultipleOneLevelTest extends Test
         };
 
         $child1 = new class extends HasParentEntity {
+            public $parent;
+
+            public function getParent()
+            {
+                return $this->parent;
+            }
+
             public function getId(): int
             {
                 return 2;
@@ -40,6 +47,13 @@ class MultipleOneLevelTest extends Test
         };
 
         $child2 = new class extends HasParentEntity {
+            public $parent;
+
+            public function getParent()
+            {
+                return $this->parent;
+            }
+
             public function getId(): int
             {
                 return 3;
@@ -52,11 +66,54 @@ class MultipleOneLevelTest extends Test
         };
 
         $parent->children = new ArrayCollection([$child1, $child2]);
+        $child1->parent = $parent;
+        $child2->parent = $parent;
         $result = Collection::from([$parent, $child1, $child2])->findMultipleOneLevelAttributes();
 
-        $this->assertCount(2, $result);
-        $this->assertEquals(2, $result[0]->getId());
-        $this->assertEquals(3, $result[1]->getId());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(AppCollection::class, $result[0]);
+    }
+
+    public function testItReturnsEmptyCollectionIfParentHasOnlyOneChild()
+    {
+        $parent = new class extends HasParentEntity {
+            public DoctrineCollection $children;
+
+            public function getId(): int
+            {
+                return 1;
+            }
+
+            public function getChildren(): DoctrineCollection
+            {
+                return $this->children;
+            }
+        };
+
+        $child1 = new class extends HasParentEntity {
+            public HasParentEntity $parent;
+
+            public function getId(): int
+            {
+                return 2;
+            }
+
+            public function getParent()
+            {
+                return $this->parent;
+            }
+
+            public function getChildren(): DoctrineCollection
+            {
+                return new ArrayCollection([]);
+            }
+        };
+        $child1->parent = $parent;
+
+        $parent->children = new Collection([$child1]);
+        $result = Collection::from([$parent, $child1])->findMultipleOneLevelAttributes();
+
+        $this->assertEmpty($result);
     }
 }
 
