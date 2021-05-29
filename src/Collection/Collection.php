@@ -96,6 +96,10 @@ class Collection extends ArrayCollection
         return $this->toIds()->toArray();
     }
 
+    /**
+     * @param Collection $collection
+     * @return static
+     */
     public function onlyInCollection(Collection $collection)
     {
         return $this->filter(function (EntityInterface $entity) use ($collection) {
