@@ -102,9 +102,11 @@ class Collection extends ArrayCollection
      */
     public function onlyInCollection(DoctrineCollection $collection)
     {
-        return $this->filter(function (EntityInterface $entity) use ($collection) {
+        $filtered = $this->filter(function (EntityInterface $entity) use ($collection) {
             return $collection->has($entity);
         });
+
+        return static::from(array_values($filtered->toArray()));
     }
 
     public function merge($source)
