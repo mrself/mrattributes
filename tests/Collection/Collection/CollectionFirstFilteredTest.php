@@ -33,4 +33,14 @@ class CollectionFirstFilteredTest extends Test
 
         $this->assertEquals(2, $result->getId());
     }
+
+    public function testItReturnsNullIfElementNotFound()
+    {
+        $collection = Collection::from([]);
+        $result = $collection->firstFiltered(function (EntityInterface $object): bool {
+            return $object->getId() === 2;
+        });
+
+        $this->assertNull($result);
+    }
 }
