@@ -4,18 +4,19 @@ namespace Mrself\Attributes\Collection;
 
 use Closure;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Doctrine\Common\Collections\Criteria;
 use Mrself\Attributes\Entity\EntityInterface;
 
 class Collection extends ArrayCollection
 {
     /**
-     * @param \Doctrine\Common\Collections\Collection|array $source
+     * @param DoctrineCollection|array $source
      * @return static
      */
     public static function from($source = [])
     {
-        if ($source instanceof Collection) {
+        if ($source instanceof DoctrineCollection) {
             $source = $source->toArray();
         }
 
