@@ -58,7 +58,7 @@ trait ParentChildCollection
     }
 
     /**
-     * @return array
+     * @return Collection[]|ParentChildCollection[]
      */
     public function findMultipleOneLevelAttributes(): array
     {
