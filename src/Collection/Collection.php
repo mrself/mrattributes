@@ -106,4 +106,13 @@ class Collection extends ArrayCollection
             return $collection->has($entity);
         });
     }
+
+    public function merge($source)
+    {
+        foreach ($source as $item) {
+            $this->add($item);
+        }
+
+        return $this;
+    }
 }
