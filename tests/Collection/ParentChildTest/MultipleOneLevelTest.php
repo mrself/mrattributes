@@ -40,10 +40,6 @@ class MultipleOneLevelTest extends Test
                 return 2;
             }
 
-            public function getChildren(): DoctrineCollection
-            {
-                return new ArrayCollection([]);
-            }
         };
 
         $child2 = new class extends HasParentEntity {
@@ -59,10 +55,6 @@ class MultipleOneLevelTest extends Test
                 return 3;
             }
 
-            public function getChildren(): DoctrineCollection
-            {
-                return new ArrayCollection([]);
-            }
         };
 
         $parent->children = new ArrayCollection([$child1, $child2]);
@@ -102,11 +94,6 @@ class MultipleOneLevelTest extends Test
             {
                 return $this->parent;
             }
-
-            public function getChildren(): DoctrineCollection
-            {
-                return new ArrayCollection([]);
-            }
         };
         $child1->parent = $parent;
 
@@ -126,10 +113,6 @@ class MultipleOneLevelTest extends Test
                 return 1;
             }
 
-            public function getChildren(): DoctrineCollection
-            {
-                return new ArrayCollection([]);
-            }
         };
 
         $root2 = new class extends HasParentEntity {
@@ -138,10 +121,6 @@ class MultipleOneLevelTest extends Test
                 return 2;
             }
 
-            public function getChildren(): DoctrineCollection
-            {
-                return new ArrayCollection([]);
-            }
         };
 
         $result = Collection::from([$root1, $root2])->findMultipleOneLevelAttributes();

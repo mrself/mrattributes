@@ -2,7 +2,8 @@
 
 namespace Mrself\Attributes\Tests\Mocks;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Mrself\Attributes\Entity\HasParentInterface;
 
 class HasParentEntity implements HasParentInterface
@@ -15,9 +16,9 @@ class HasParentEntity implements HasParentInterface
         return null;
     }
 
-    public function getChildren()
+    public function getChildren(): DoctrineCollection
     {
-
+        return new ArrayCollection([]);
     }
 
     public function getId()
