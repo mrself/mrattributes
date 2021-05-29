@@ -109,6 +109,30 @@ class Collection extends ArrayCollection
         return static::from(array_values($filtered->toArray()));
     }
 
+    public function notInCollection(Collection $collection)
+    {
+        $filtered = $this->filter(function (EntityInterface $entity) use ($collection) {
+            return !$collection->has($entity);
+        });
+
+        return static::from(array_values($filtered->toArray()));
+    }
+
+    /**
+     * @param Collection|array $entities
+     * @return bool
+     */
+    public function matchAny($entities): bool
+    {
+        foreach ($entities as $entity) {
+            if ($this->has($entity)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function merge($source)
     {
         foreach ($source as $item) {
