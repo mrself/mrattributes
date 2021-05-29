@@ -33,15 +33,15 @@ class MultipleTreeEntities
      */
     public function findMultipleOneLevelEntities(): array
     {
-        $groups = $this->getRootMultipleOneLevelEntities();
+        $groups = $this->findRootMultipleOneLevelEntities();
         foreach ($this->collection as $entity) {
-            $groups = array_merge($groups, $this->getChildrenInCollection($entity));
+            $groups = array_merge($groups, $this->findChildrenInCollection($entity));
         }
 
         return $groups;
     }
 
-    protected function getChildrenInCollection(HasParentInterface $entity): array
+    protected function findChildrenInCollection(HasParentInterface $entity): array
     {
         $children = Collection::from($entity->getChildren());
         $foundChildren = $this->collection->onlyInCollection($children);
@@ -52,7 +52,7 @@ class MultipleTreeEntities
         return [];
     }
 
-    private function getRootMultipleOneLevelEntities(): array
+    private function findRootMultipleOneLevelEntities(): array
     {
         $roots = $this->collection->getRootAttributes();
         if ($roots->count() > 1) {
