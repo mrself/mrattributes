@@ -2,6 +2,7 @@
 
 namespace Mrself\Attributes\Collection;
 
+use Closure;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Mrself\Attributes\Entity\EntityInterface;
@@ -23,10 +24,10 @@ class Collection extends ArrayCollection
 
     /**
      * Returns the first element of filtered result or null
-     * @param callable $filterCallback
-     * @return ?EntityInterface
+     * @param Closure $filterCallback
+     * @return EntityInterface
      */
-    public function firstFiltered(callable $filterCallback): ?EntityInterface
+    public function firstFiltered(Closure $filterCallback): ?EntityInterface
     {
         $first = $this->filter($filterCallback)->first();
         return $first ?: null;
