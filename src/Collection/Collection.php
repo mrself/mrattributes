@@ -66,7 +66,7 @@ class Collection extends ArrayCollection
 
     public function findOneBy(array $by)
     {
-        return $this->findBy($by)->first();
+        return $this->findBy($by)->first() ?: null;
     }
 
     /**
