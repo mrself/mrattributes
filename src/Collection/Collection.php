@@ -30,8 +30,7 @@ class Collection extends ArrayCollection
      */
     public function firstFiltered(Closure $filterCallback): ?EntityInterface
     {
-        $first = $this->filter($filterCallback)->first();
-        return $first ?: null;
+        return $this->filter($filterCallback)->first() ?: null;
     }
 
     /**
