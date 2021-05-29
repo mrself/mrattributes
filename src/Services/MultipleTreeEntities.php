@@ -6,6 +6,17 @@ use Mrself\Attributes\Collection\Collection;
 use Mrself\Attributes\Collection\ParentChildCollection;
 use Mrself\Attributes\Entity\HasParentInterface;
 
+/**
+ * Finds multiple entities at the same level.
+ * "Multiple" here means "more than one", not zero, not 1.
+ *
+ * Returns:
+ *  - Multiple root entities
+ *  - Multiple direct children of any parent
+ *
+ * It returns found multiple entities as an array of collections.
+ * Where each collection contains found multiple entities.
+ */
 class MultipleTreeEntities
 {
     /**
