@@ -3,10 +3,17 @@
 namespace Mrself\Attributes\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Mrself\Attributes\Collection\ParentChildCollection;
 
 interface HasParentInterface extends EntityInterface
 {
-    public function getParent(): HasParentInterface;
+    /**
+     * @return HasParentInterface
+     */
+    public function getParent();
 
-    public function getChildren(): Collection;
+    /**
+     * @return Collection|ParentChildCollection
+     */
+    public function getChildren();
 }
