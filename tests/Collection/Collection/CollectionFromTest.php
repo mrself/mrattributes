@@ -7,7 +7,7 @@ use Mrself\Attributes\Collection\Collection;
 use Mrself\Attributes\Entity\EntityInterface;
 use Mrself\Attributes\Tests\Test;
 
-class CollectionTest extends Test
+class CollectionFromTest extends Test
 {
     public function testItCreatesInstanceByArray()
     {
