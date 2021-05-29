@@ -2,13 +2,19 @@
 
 namespace Mrself\Attributes\Collection;
 
+use Mrself\Attributes\Entity\EntityInterface;
 use Mrself\Attributes\Entity\HasParentInterface;
 
+/**
+ * @mixin Collection
+ * @method HasParentInterface|EntityInterface firstFiltered(\Closure $closure)
+ * @method ParentChildCollection|Collection onlyInCollection(Collection|ParentChildCollection $collection)
+ */
 trait ParentChildCollection
 {
     /**
      * Returns entities which do not have children in the current collection
-     * @return static
+     * @return ParentChildCollection|Collection
      */
     public function onlyDeepest()
     {
@@ -17,7 +23,11 @@ trait ParentChildCollection
         });
     }
 
-    public function getByParent(HasParentInterface $parent): ?HasParentInterface
+    /**
+     * @param HasParentInterface $parent
+     * @return EntityInterface|null|HasParentInterface
+     */
+    public function getByParent(HasParentInterface $parent)
     {
         return $this->firstFiltered(function (HasParentInterface $entity) use ($parent) {
             return $this->isParentEqualTo($entity, $parent);
@@ -37,7 +47,7 @@ trait ParentChildCollection
 
     /**
      * Returns entities without parent
-     * @return static
+     * @return ParentChildCollection|Collection
      */
     public function getRootAttributes()
     {
