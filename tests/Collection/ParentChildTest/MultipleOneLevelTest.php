@@ -115,6 +115,40 @@ class MultipleOneLevelTest extends Test
 
         $this->assertEmpty($result);
     }
+
+    public function testItReturnsRootsIfThereMoreThanOne()
+    {
+        $root1 = new class extends HasParentEntity {
+            public DoctrineCollection $children;
+
+            public function getId(): int
+            {
+                return 1;
+            }
+
+            public function getChildren(): DoctrineCollection
+            {
+                return new ArrayCollection([]);
+            }
+        };
+
+        $root2 = new class extends HasParentEntity {
+            public function getId(): int
+            {
+                return 2;
+            }
+
+            public function getChildren(): DoctrineCollection
+            {
+                return new ArrayCollection([]);
+            }
+        };
+
+        $result = Collection::from([$root1, $root2])->findMultipleOneLevelAttributes();
+
+        $this->assertCount(1, $result);
+        $this->assertEquals(2, $result[0]->count());
+    }
 }
 
 class Collection extends AppCollection
