@@ -6,5 +6,8 @@ interface AttributeInterface extends HasParentInterface
 {
     public function getName(): ?string;
 
-    public function getGroup(): GroupInterface;
+    /**
+     * @return GroupInterface|null
+     */
+    public function getGroup();
 }
